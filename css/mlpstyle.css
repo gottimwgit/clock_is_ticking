@@ -1,0 +1,22 @@
+#canvas {
+    position:   relative;
+    width:      1277px;
+}
+.frame { 
+    position:   absolute;
+}
+#blades {
+    z-index:    30;
+    top:        530px;
+    left:       540px;
+}
+#bg {
+    z-index:    20;
+}
+#daySky {
+    z-index:    10;
+}
+#sun {
+    z-index:    45;
+    top:        400px;
+}

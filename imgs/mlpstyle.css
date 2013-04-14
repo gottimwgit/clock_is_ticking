@@ -1,0 +1,8 @@
+.frame { 
+    position: absolute;
+    top: 0px;
+}
+
+p {
+    border: solid;
+}
