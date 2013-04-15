@@ -1,6 +1,7 @@
 #canvas {
 	position:	relative;
 	width:		1277px;
+		left: 200px;
 }
 .frame { 
 	position:	absolute;
@@ -17,6 +18,6 @@
 	z-index:	10;
 }
 #sun {
-	z-index:	45;
+	z-index:	15;
 	top:		400px;
 }

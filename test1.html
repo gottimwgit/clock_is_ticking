@@ -4,6 +4,7 @@
 	<title>New document</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="scripts/jQueryRotate.2.2.js"></script>
+	<script type="text/javascript" src="scripts/jquery.path.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/mlpstyle.css" />
 </head>
 
@@ -12,6 +13,7 @@
 	$(document).ready(function () {
 		
 		setInterval(secTick, 1000);
+		setInterval(moveSun,1000);
 
 	});
 
@@ -25,9 +27,28 @@
 
 		secAngle += 20;
 	}
+	
+	var sunForwardX = [35, 79, 144, 223, 314, 424, 541, 654, 762, 857, 931, 1000, 1050];
+	var sunForwardY = [538, 419, 312, 222, 154, 107, 91, 107, 154, 222, 312, 419, 510];
 
-	function toogleNight() {
+	//using 13 hrs for animation [0-12]
+	var curHour = 0;
+	var noOfHours = 12;
+	var moveAngle = 3;
+	var moveSun = function() {
+		//increment hour and mod by no of hours to get next index to coordinates for sun
+		curHour++;
+		curHour %= noOfHours;
 
+			//normal case - just move sun
+			var bezier_params_forward = {
+				start: { x: sunForwardX[curHour], y: sunForwardY[curHour], angle: -moveAngle, length: 0.5 },
+				end: { x: sunForwardX[curHour + 1], y: sunForwardY[curHour + 1], angle: moveAngle, length: 0.5 }
+			}
+			$("#sun").animate({ path: new $.path.bezier(bezier_params_forward) }, 500);
+
+		
+	//	$("#sun").animate({ path: new $.path.bezier(bezier_params_back)    }, 2000);
 	}
 
 </script>
