@@ -3,37 +3,48 @@
 <head>
 	<title>New document</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/mlpstyle.css" />
+	<script type="text/javascript" src="scripts/jQueryRotate.2.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/mlpstyle.css" />
 </head>
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-       
-    });
+	$(document).ready(function () {
+		
+		setInterval(secTick, 1000);
 
-    function toogleNight() {
+	});
 
-    }
+	var secAngle = 0;
+	var secTick = function () {
+
+		$("#blades").rotate({
+			animateTo: secAngle,
+			duration: 1000,
+		});
+
+		secAngle += 20;
+	}
+
+	function toogleNight() {
+
+	}
+
 </script>
-
-
 <body>
-    <div id="canvas">
-        <div class="frame" id="daySky">
-            <img src="imgs/skyDay.png" />
-        </div>
-        <div class="frame" id="bg">
-            <img src="imgs/bg.png" />
-        </div>
-        <div class="frame" id="blades">
-            <img src="imgs/blades.png" />
-        </div>
-        <div class="frame" id="sun">
-            <img src="imgs/sun.png" />
-        </div>
-
-    </div>
+	<div id="canvas">
+		<div class="frame" id="daySky">
+			<img src="imgs/skyDay.png" />
+		</div>
+		<div class="frame" id="bg">
+			<img src="imgs/bg.png" />
+		</div>
+		<div class="frame" id="blades">
+			<img src="imgs/blades.png" />
+		</div>
+		<div class="frame" id="sun">
+			<img src="imgs/sun.png" />
+		</div>
+	</div>
 </body>
-
 </html>
