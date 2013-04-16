@@ -7,17 +7,24 @@
 	position:	absolute;
 }
 #blades {
-	z-index:	30;
+	z-index:	40;
 	top:		530px;
 	left:		540px;
 }
 #bg {
+	z-index:	30;
+}
+#skyDay {
 	z-index:	20;
 }
-#daySky {
+#skyNight {
 	z-index:	10;
 }
 #sun {
-	z-index:	15;
+	z-index:	25;
+	top:		400px;
+}
+#moon {
+	z-index:	25;
 	top:		400px;
 }
