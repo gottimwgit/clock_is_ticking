@@ -19,8 +19,7 @@
 		
 		//setInterval(updateClock, everySec);
 		//setInterval(updateClock, 300);
-		setInterval(moveSunAndMoon, 1000);
-
+		setInterval(moveSunAndMoon, 3000);
 
 		//setInterval(null, everyMin);
 		//setInterval(null, everyHour);
@@ -111,6 +110,8 @@
 		coorIndex = (curHour-1) % (coorX.length);
 		nextCoorIndex = (curHour) % (coorX.length);
 
+		displayTextTime();
+
 		if (curHour == 0)
 			coorIndex = 11;
 
@@ -143,9 +144,12 @@
 
 	}
 
+	var displayTextTime = function () {
+		$("#timeDisplay").text("" + curHour + ":" + curMin);
+	}
 </script>
 <body>
-	<div id="timeDisplay"></div>
+	<div id="timeDisplay"> aaa</div>
 	<div id="canvas">
 		<div class="frame" id="skyDay">
 			<img src="imgs/skyDay.png" />
