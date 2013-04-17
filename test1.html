@@ -9,43 +9,90 @@
 </head>
 
 <script type="text/javascript">
-
+	
+	/* global variables */
+	var curHour = 0, curMin = 0, curSec = 0;
+	var oldHour = 0, oldMin = 0, oldSec = 0;
+	var isDay = 1;
+	var everySec = 1000, everyMin = 1000 * 60, everyHour = 1000 * 60 * 60;
 	$(document).ready(function () {
 		
-		//every second
-		setInterval(secTick, 1000);
+		//setInterval(updateClock, everySec);
+		//setInterval(updateClock, 300);
+		setInterval(moveSunAndMoon, 1000);
 
-		//every minute
-		setInterval(toggleSky, 1000);
 
+		//setInterval(null, everyMin);
+		//setInterval(null, everyHour);
 		//every hour
-		setInterval(moveSunAndMoon, 500);
-
-		$("#skyDay img").fadeIn(250);
-
+		//setInterval(moveSunAndMoon, 500);
+		//$("#skyDay").fadeTo("slow", 0.5);
 	});
-	var curHour = 0;
-	var curMin = 0;
-	var curSec = 0;
-	var isDay = 1;
 
-	var secAngle = 1;
-	var secTick = function () {
-
-		$("#blades").rotate({
-			animateTo: secAngle,
-			duration: 500,
-		});
-
-		secAngle += 20;
-		//Todo: fix this secAngle %= 361;
+	/* main clock logic */
+	var updateClock = function() {
+		getTime();
+		checkForHourlyChange();
+		checkForMinChange();
+		checkForSecChange();
 	}
 
-	curSkyDayFade = 1.0;
-	var toggleSky = function () {
+	function getTime() {
+		var now = new Date();
+		curHour = now.getHours();
+		curMin  = now.getMinutes();
+		curSec  = now.getSeconds();
+	}
 
+	function checkForHourlyChange() {
+		if (oldHour != curHour) {
+			oldHour = curHour;
+			//list of all functions to simulate passing hour
+
+
+
+		}
+		//else: nothing to do here
+	}
+	function checkForMinChange() {
+		if (oldMin != curMin) {
+			oldMin = curMin;
+			//list of all functions to simulate passing min
+
+
+
+		}
+		//else: nothing to do here
+	}
+
+	function checkForSecChange() {
+		/* every secon always passes test in current implementation
+		if (oldSec != curSec) {
+			oldSec = curSec;
+			//list of all functions to simulate passing sec
+		}
+		*/
+		//list of all functions to simulate passing sec
+		windmillSecondTick();
+	}
+
+	var bladeAngle = 1;
+	var bladeTickDuration = 100;
+	function windmillSecondTick() {
+		$("#blades").rotate({
+			angle: bladeAngle,
+			animateTo: bladeAngle + 20,
+			duration: bladeTickDuration,
+		});
+		//handle angles > 360 deg
+		bladeAngle = (bladeAngle + 20) % 360;
+	}
+	
+	
+	curSkyDayFade = 1.0;
+	var darkenSky = function () {
 		if (isDay) {
-			//$("#skyDay").fadeTo("slow", 0.1);
+			$("#skyDay").fadeTo("slow", 0.1);
 			curSkyDayFade -= 0.1;
 		}
 
@@ -53,39 +100,58 @@
 	}
 	
 	//using 13 hrs for animation [0-12]
-	var noOfHours = 12;
+	var noOfHours = 24;
 	var moveAngle = 5;
 	var moveSpeed = 200;
-	var sunForwardX = [35, 79, 144, 223, 314, 424, 541, 654, 762, 857, 931, 1000, 1050];
-	var sunForwardY = [510, 419, 312, 222, 154, 107, 91, 107, 154, 222, 312, 419, 510];
+	var coorIndex = 0, nextCoorIndex = 0;
+	var coorX = [545, 660, 763, 860, 935, 1003, 40, 83, 151, 231, 325, 432]; 
+	var coorY = [51, 76, 118, 181, 264, 367, 500, 378, 269, 181, 119, 74];
 	var moveSunAndMoon = function () {
-		//check if hour overflows if so flip day and night
-		if (curHour == noOfHours-1)
-			isDay = !isDay;
+		//calculate position in array of coordianates
+		coorIndex = (curHour-1) % (coorX.length);
+		nextCoorIndex = (curHour) % (coorX.length);
 
-		//increment hour and mod by no of hours to get next index to coordinates for sun
-		curHour++;
-		curHour %= noOfHours;
+		if (curHour == 0)
+			coorIndex = 11;
+
+		if (curHour == 6 || curHour == 18) {
+			//debug 2 lines
+			curHour++;
+			curHour %= 24;
+			//handle cross of sun and moon to other side by skiping one animation
+			return;
+		}
+
+		if (curHour <= 18 && curHour >= 6)
+			isDay = true;
+		else
+			isDay = false;
 
 		var bezier_params_forward = {
-			start: { x: sunForwardX[curHour], y: sunForwardY[curHour], angle: -moveAngle, length: 0.5 },
-			end: { x: sunForwardX[curHour + 1], y: sunForwardY[curHour + 1], angle: moveAngle, length: 0.5 }
+			start: { x: coorX[coorIndex], y: coorY[coorIndex], angle: -moveAngle, length: 0.5 },
+			end: { x: coorX[nextCoorIndex], y: coorY[nextCoorIndex], angle: moveAngle, length: 0.5 }
 		}
 
 		if (isDay)
 			$("#sun").animate({path: new $.path.bezier(bezier_params_forward)}, moveSpeed);
 		else
-			$("#moon").animate({path: new $.path.bezier(bezier_params_forward)}, moveSpeed);
+			$("#moon").animate({ path: new $.path.bezier(bezier_params_forward) }, moveSpeed);
+
+		//debug 2 lines
+		curHour++;
+		curHour %= 24;
+
 	}
 
 </script>
 <body>
+	<div id="timeDisplay"></div>
 	<div id="canvas">
 		<div class="frame" id="skyDay">
 			<img src="imgs/skyDay.png" />
 		</div>
 		<div class="frame" id="skyNight">
-			<img src="imgs/skyDay.png" />
+			<img src="imgs/skyNight.png" />
 		</div>
 		<div class="frame" id="bg">
 			<img src="imgs/bg.png" />
