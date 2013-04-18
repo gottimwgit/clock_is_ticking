@@ -1,0 +1,4 @@
+-and slight  motion to stars
+-make new stars
+-rework sun png to look nicer
+-create function to set up first frame and vars to look fine on load

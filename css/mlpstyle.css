@@ -21,10 +21,10 @@
 	z-index:	10;
 }
 #sun {
-	z-index:	925;
+	z-index:	25;
 	top:		400px;
 }
 #moon {
-	z-index:	925;
+	z-index:	25;
 	top:		400px;
 }
