@@ -19,7 +19,7 @@
 		
 		//setInterval(updateClock, everySec);
 		//setInterval(updateClock, 300);
-		setInterval(moveSunAndMoon, 3000);
+		setInterval(moveSunAndMoon, 2000);
 
 		//setInterval(null, everyMin);
 		//setInterval(null, everyHour);
@@ -102,46 +102,51 @@
 	var noOfHours = 24;
 	var moveAngle = 5;
 	var moveSpeed = 200;
-	var coorIndex = 0, nextCoorIndex = 0;
-	var coorX = [545, 660, 763, 860, 935, 1003, 40, 83, 151, 231, 325, 432]; 
-	var coorY = [51, 76, 118, 181, 264, 367, 500, 378, 269, 181, 119, 74];
+	var coorIdx = 0, nextCoorIdx = 0;
+	var sunCoorX = [57, 85, 130, 185, 256, 346, 448, 535, 599,662,727,779,830,872,914,952,984];
+	var sunCoorY = [442, 370, 305, 229, 160, 102, 65, 51, 60,72,97,125,158,197,241,286,341];
+	var moonCoorX = [39, 92, 158, 238, 328, 434, 525, 618, 713, 797, 871, 932, 999];
+	var moonCoorY = [420, 309, 219, 143, 85, 49, 36, 49, 83, 130, 198, 271, 403];
+	var bezier_params = 0;
 	var moveSunAndMoon = function () {
-		//calculate position in array of coordianates
-		coorIndex = (curHour-1) % (coorX.length);
-		nextCoorIndex = (curHour) % (coorX.length);
 
 		displayTextTime();
 
-		if (curHour == 0)
-			coorIndex = 11;
+		//check if within sun movement hours
+		if (curHour > 5 && curHour < 22) {
+			coorIdx = curHour - 6;
+			nextCoorIdx = coorIdx + 1;
 
-		if (curHour == 6 || curHour == 18) {
-			//debug 2 lines
-			curHour++;
-			curHour %= 24;
-			//handle cross of sun and moon to other side by skiping one animation
-			return;
+			bezier_params = {
+				start: { x: sunCoorX[coorIdx], y: sunCoorY[coorIdx], angle: -moveAngle, length: 0.5 },
+				end: { x: sunCoorX[nextCoorIdx], y: sunCoorY[nextCoorIdx], angle: moveAngle, length: 0.5 }
+			}
+
+			$("#sun").animate({ path: new $.path.bezier(bezier_params) }, moveSpeed);
 		}
 
-		if (curHour <= 18 && curHour >= 6)
-			isDay = true;
-		else
-			isDay = false;
+		//check if within  moon movement hours
+		if (curHour > 18 || curHour < 7) {
+			//handle hour change from 23 -> 0
+			if (curHour > 18) {
+				coorIdx = curHour - 19;
+				nextCoorIdx = coorIdx + 1;
+			} else {
+				coorIdx = curHour + 5;
+				nextCoorIdx = coorIdx + 1;
+			}
 
-		var bezier_params_forward = {
-			start: { x: coorX[coorIndex], y: coorY[coorIndex], angle: -moveAngle, length: 0.5 },
-			end: { x: coorX[nextCoorIndex], y: coorY[nextCoorIndex], angle: moveAngle, length: 0.5 }
+			bezier_params = {
+				start: { x: moonCoorX[coorIdx], y: moonCoorY[coorIdx], angle: -moveAngle, length: 0.5 },
+				end: { x: moonCoorX[nextCoorIdx], y: moonCoorY[nextCoorIdx], angle: moveAngle, length: 0.5 }
+			}
+
+			$("#moon").animate({ path: new $.path.bezier(bezier_params) }, moveSpeed);
 		}
-
-		if (isDay)
-			$("#sun").animate({path: new $.path.bezier(bezier_params_forward)}, moveSpeed);
-		else
-			$("#moon").animate({ path: new $.path.bezier(bezier_params_forward) }, moveSpeed);
 
 		//debug 2 lines
 		curHour++;
 		curHour %= 24;
-
 	}
 
 	var displayTextTime = function () {
