@@ -19,7 +19,7 @@
 		
 		//setInterval(updateClock, everySec);
 		//setInterval(updateClock, 300);
-		setInterval(moveSunAndMoon, 2000);
+		setInterval(moveSunAndMoon, 1000);
 
 		//setInterval(null, everyMin);
 		//setInterval(null, everyHour);
@@ -88,16 +88,20 @@
 	}
 	
 	
-	curSkyDayFade = 1.0;
-	var darkenSky = function () {
-		if (isDay) {
-			$("#skyDay").fadeTo("slow", 0.1);
-			curSkyDayFade -= 0.1;
-		}
-
-		secAngle += 20;
+	var curSkyDayFade = 1.0;
+	function darkenSky(darkenBy) {
+		curSkyDayFade -= darkenBy;
+		if (curSkyDayFade < 0)
+			curSkyDayFade = 0.0;
+		$("#skyDay").fadeTo("slow", curSkyDayFade);
 	}
-	
+	function lightenSky(lightenBy) {
+		curSkyDayFade += lightenBy;
+		if (curSkyDayFade > 1)
+			curSkyDayFade = 1.0;
+		$("#skyDay").fadeTo("slow", curSkyDayFade);
+	}
+
 	//using 13 hrs for animation [0-12]
 	var noOfHours = 24;
 	var moveAngle = 5;
@@ -142,6 +146,13 @@
 			}
 
 			$("#moon").animate({ path: new $.path.bezier(bezier_params) }, moveSpeed);
+		}
+
+		//handle lightening up and darkening sky
+		if ( curHour >= 6 && curHour <= 9 ) {
+			lightenSky( 0.25 );
+		}else if ( curHour >= 18 && curHour <= 21 ) {
+			darkenSky( 0.25 );
 		}
 
 		//debug 2 lines
