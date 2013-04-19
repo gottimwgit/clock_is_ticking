@@ -19,22 +19,20 @@
 		setUpClock();
 
 		//setInterval(updateClock, everySec);
-		setInterval(moveSunAndMoon, 1000);
+		setInterval(moveSunAndMoon, 3000);
+		setInterval(windmillSecondTick, 1000);
 	});
 
 	/* Function set up all elements in position and then make them visible */
 	function setUpClock() {
 		getTime();
 		//Fake hour to set objects in right place
-		curHour--; curMin--; curSec--;
-		oldHour = curHour - 1; oldMin = curMin - 1;	oldSec = curSec - 1;
+		//curHour--; curMin--; curSec--;
+		//oldHour = curHour - 1; oldMin = curMin - 1;	oldSec = curSec - 1;
 
 		checkForHourlyChange();
 		checkForMinChange();
 		checkForSecChange();
-
-		//TODO: maybe make this less crude :(
-		getTime();
 
 		$(".frame").show();
 	}

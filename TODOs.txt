@@ -1,4 +1,10 @@
 -and slight  motion to stars
 -make new stars
--rework sun png to look nicer
--create function to set up first frame and vars to look fine on load
+-split background into separate objects (buildings mountains)
+--add second layer (dark stage for handling dawns and shawns)
+--add mechanism to handle dawns and shawns on buidings and mountains so further back objects lighten/darken sooner than more foreground objects
+-SOUNDS to ticks
+-improve animations of moon and sun movement(sprites??)
+-random clounds (night/day?)
+
+-add gradient/effects to shwan/dawn
