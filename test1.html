@@ -16,18 +16,29 @@
 	var isDay = 1;
 	var everySec = 1000, everyMin = 1000 * 60, everyHour = 1000 * 60 * 60;
 	$(document).ready(function () {
-		
-		//setInterval(updateClock, everySec);
-		//setInterval(updateClock, 300);
-		setInterval(moveSunAndMoon, 1000);
+		setUpClock();
 
-		//setInterval(null, everyMin);
-		//setInterval(null, everyHour);
-		//every hour
-		//setInterval(moveSunAndMoon, 500);
-		//$("#skyDay").fadeTo("slow", 0.5);
+		//setInterval(updateClock, everySec);
+		setInterval(moveSunAndMoon, 1000);
 	});
 
+	/* Function set up all elements in position and then make them visible */
+	function setUpClock() {
+		getTime();
+		//Fake hour to set objects in right place
+		curHour--; curMin--; curSec--;
+		oldHour = curHour - 1; oldMin = curMin - 1;	oldSec = curSec - 1;
+
+		checkForHourlyChange();
+		checkForMinChange();
+		checkForSecChange();
+
+		//TODO: maybe make this less crude :(
+		getTime();
+
+		$(".frame").show();
+	}
+	
 	/* main clock logic */
 	var updateClock = function() {
 		getTime();
@@ -47,9 +58,7 @@
 		if (oldHour != curHour) {
 			oldHour = curHour;
 			//list of all functions to simulate passing hour
-
-
-
+			moveSunAndMoon();
 		}
 		//else: nothing to do here
 	}
@@ -57,13 +66,9 @@
 		if (oldMin != curMin) {
 			oldMin = curMin;
 			//list of all functions to simulate passing min
-
-
-
 		}
 		//else: nothing to do here
 	}
-
 	function checkForSecChange() {
 		/* every secon always passes test in current implementation
 		if (oldSec != curSec) {
@@ -86,21 +91,6 @@
 		//handle angles > 360 deg
 		bladeAngle = (bladeAngle + 20) % 360;
 	}
-	
-	
-	var curSkyDayFade = 1.0;
-	function darkenSky(darkenBy) {
-		curSkyDayFade -= darkenBy;
-		if (curSkyDayFade < 0)
-			curSkyDayFade = 0.0;
-		$("#skyDay").fadeTo("slow", curSkyDayFade);
-	}
-	function lightenSky(lightenBy) {
-		curSkyDayFade += lightenBy;
-		if (curSkyDayFade > 1)
-			curSkyDayFade = 1.0;
-		$("#skyDay").fadeTo("slow", curSkyDayFade);
-	}
 
 	//using 13 hrs for animation [0-12]
 	var noOfHours = 24;
@@ -111,6 +101,7 @@
 	var sunCoorY = [442, 370, 305, 229, 160, 102, 65, 51, 60,72,97,125,158,197,241,286,341];
 	var moonCoorX = [39, 92, 158, 238, 328, 434, 525, 618, 713, 797, 871, 932, 999];
 	var moonCoorY = [420, 309, 219, 143, 85, 49, 36, 49, 83, 130, 198, 271, 403];
+	var skyDayFadeAmount = [0, 0, 0, 0, 0.2, 0.4, 0.6, 0.8, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 0.8, 0.6, 0.4, 0.2, 0, 0, 0];
 	var bezier_params = 0;
 	var moveSunAndMoon = function () {
 
@@ -149,11 +140,7 @@
 		}
 
 		//handle lightening up and darkening sky
-		if ( curHour >= 6 && curHour <= 9 ) {
-			lightenSky( 0.25 );
-		}else if ( curHour >= 18 && curHour <= 21 ) {
-			darkenSky( 0.25 );
-		}
+		$("#skyDay").fadeTo("slow", skyDayFadeAmount[curHour]);
 
 		//debug 2 lines
 		curHour++;

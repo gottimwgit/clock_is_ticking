@@ -1,10 +1,11 @@
 #canvas {
 	position:	relative;
 	width:		1277px;
-		left: 200px;
+	left:		200px;
 }
 .frame { 
 	position:	absolute;
+	display:	none;
 }
 #blades {
 	z-index:	40;
