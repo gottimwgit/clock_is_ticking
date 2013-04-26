@@ -1,10 +1,20 @@
--and slight  motion to stars
--make new stars
+URGENT:
+-fix mountain 3 from left - edge to light in the night
+
+
+NEXT UP:
 -split background into separate objects (buildings mountains)
---add second layer (dark stage for handling dawns and shawns)
---add mechanism to handle dawns and shawns on buidings and mountains so further back objects lighten/darken sooner than more foreground objects
+--add mechanism to handle dawns and shawns on buidings and mountains so further back objects lighten/darken sooner than more foreground obj
+ects
+
+LATER ON
+-make new stars
+-and slight  motion to stars
 -SOUNDS to ticks
 -improve animations of moon and sun movement(sprites??)
--random clounds (night/day?)
 
+
+
+would be nice (maybe):
 -add gradient/effects to shwan/dawn
+-random clounds (night/day?)
