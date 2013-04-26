@@ -1,31 +1,60 @@
 #canvas {
 	position:	relative;
 	width:		1277px;
+	height:     714px;
 	left:		200px;
+	margin-top: 100px;
 }
 .frame { 
 	position:	absolute;
 	display:	none;
 }
-#blades {
-	z-index:	40;
+.blades {
 	top:		530px;
 	left:		540px;
 }
-#bg {
-	z-index:	30;
+.blades_day {
+	z-index:	400;
 }
-#skyDay {
+.blades_night {
+	z-index:	399;
+}
+
+
+.foreground_day {
+	z-index:	150;
+}
+.foreground_night {
+	z-index:	149;
+}
+.midground_day {
+	z-index:	100;
+}
+.midground_night {
+	z-index:	99;
+}
+.background_day {
+	z-index:	50;
+}
+.background_night {
+	z-index:	49;
+}
+.sky_day {
 	z-index:	20;
 }
-#skyNight {
-	z-index:	10;
+.sky_night {
+	z-index:	19;
 }
+
 #sun {
-	z-index:	25;
+	z-index:	30;
 	top:		400px;
 }
 #moon {
-	z-index:	25;
+	z-index:	30;
 	top:		400px;
+}
+
+.bottom_pos {
+	bottom:0px;
 }

@@ -16,24 +16,14 @@
 	var isDay = 1;
 	var everySec = 1000, everyMin = 1000 * 60, everyHour = 1000 * 60 * 60;
 	$(document).ready(function () {
-		setUpClock();
+		updateClock();
+		$(".frame").show();
 
 		//setInterval(updateClock, everySec);
 		setInterval(moveSunAndMoon, 3000);
 		setInterval(windmillSecondTick, 1000);
 	});
 
-	/* Function set up all elements in position and then make them visible */
-	function setUpClock() {
-		getTime();
-
-		checkForHourlyChange();
-		checkForMinChange();
-		checkForSecChange();
-
-		$(".frame").show();
-	}
-	
 	/* main clock logic */
 	var updateClock = function() {
 		getTime();
@@ -78,7 +68,7 @@
 	var bladeAngle = 1;
 	var bladeTickDuration = 100;
 	function windmillSecondTick() {
-		$("#blades").rotate({
+		$(".blades").rotate({
 			angle: bladeAngle,
 			animateTo: bladeAngle + 20,
 			duration: bladeTickDuration,
@@ -87,19 +77,17 @@
 		bladeAngle = (bladeAngle + 20) % 360;
 	}
 
-	//using 13 hrs for animation [0-12]
 	var noOfHours = 24;
 	var moveAngle = 5;
 	var moveSpeed = 200;
 	var coorIdx = 0, nextCoorIdx = 0;
-	var sunCoorX = [57, 85, 130, 185, 256, 346, 448, 535, 599,662,727,779,830,872,914,952,984];
-	var sunCoorY = [442, 370, 305, 229, 160, 102, 65, 51, 60,72,97,125,158,197,241,286,341];
-	var moonCoorX = [39, 92, 158, 238, 328, 434, 525, 618, 713, 797, 871, 932, 999];
-	var moonCoorY = [420, 309, 219, 143, 85, 49, 36, 49, 83, 130, 198, 271, 403];
+	var sunCoorX = [57,  85,  130, 185, 256, 346, 448, 535, 599, 662, 727, 779, 830 ,872, 914 ,952, 984];
+	var sunCoorY = [442, 370, 305, 229, 160, 102, 65,  51,  60,  72,  97,  125, 158, 197, 241, 286, 341];
+	var moonCoorX = [39,  92,  158, 238, 328, 434, 525, 618, 713, 797, 871, 932, 999];
+	var moonCoorY = [420, 309, 219, 143, 85,  49,  36,  49,  83,  130, 198, 271, 403];
 	var skyDayFadeAmount = [0, 0, 0, 0, 0.2, 0.4, 0.6, 0.8, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 0.8, 0.6, 0.4, 0.2, 0, 0, 0];
 	var bezier_params = 0;
 	var moveSunAndMoon = function () {
-
 		displayTextTime();
 
 		//check if within sun movement hours
@@ -135,7 +123,11 @@
 		}
 
 		//handle lightening up and darkening sky
-		$("#skyDay").fadeTo("slow", skyDayFadeAmount[curHour]);
+		$(".sky_day").fadeTo("slow", skyDayFadeAmount[curHour]);
+		$(".foreground_day").fadeTo("slow", skyDayFadeAmount[curHour]);
+		$(".midground_day").fadeTo("slow", skyDayFadeAmount[curHour]);
+		$(".background_day").fadeTo("slow", skyDayFadeAmount[curHour]);
+		$(".blades_day").fadeTo("slow", skyDayFadeAmount[curHour]);
 
 		//debug 2 lines
 		curHour++;
@@ -149,24 +141,35 @@
 <body>
 	<div id="timeDisplay"> aaa</div>
 	<div id="canvas">
-		<div class="frame" id="skyDay">
-			<img src="imgs/skyDay.png" />
-		</div>
-		<div class="frame" id="skyNight">
-			<img src="imgs/skyNight.png" />
-		</div>
-		<div class="frame" id="bg">
-			<img src="imgs/bg.png" />
-		</div>
-		<div class="frame" id="blades">
-			<img src="imgs/blades.png" />
-		</div>
+		<div class="frame sky_day">
+			<img src="imgs/skyDay.png" />		</div>
+		<div class="frame sky_night">
+			<img src="imgs/skyNight.png" />		</div>
+
+		<div class="frame foreground_day bottom_pos">
+			<img src="imgs/foreground_day.png" />			</div>
+		<div class="frame foreground_night bottom_pos">
+			<img src="imgs/foreground_night.png" />			</div>
+
+		<div class="frame midground_day bottom_pos">
+			<img src="imgs/midground_day.png" />			</div>
+		<div class="frame midground_night bottom_pos">
+			<img src="imgs/midground_night.png" />			</div>
+
+		<div class="frame background_day ">
+			<img src="imgs/background_day.png" />			</div>
+		<div class="frame background_night ">
+			<img src="imgs/background_night.png" />			</div>
+
+		<div class="frame blades blades_day">
+			<img src="imgs/blades_day.png" />		</div>
+		<div class="frame blades blades_night">
+			<img src="imgs/blades_night.png" />		</div>
+
 		<div class="frame" id="sun">
-			<img src="imgs/sun.png" />
-		</div>
+			<img src="imgs/sun.png" />			</div>
 		<div class="frame" id="moon">
-			<img src="imgs/moon.png" />
-		</div>
+			<img src="imgs/moon.png" />			</div>
 	</div>
 </body>
 </html>
