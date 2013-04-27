@@ -13,20 +13,34 @@
 	/* global variables */
 	var curHour = 0, curMin = 0, curSec = 0;
 	var oldHour = 0, oldMin = 0, oldSec = 0;
-	var isDay = 1;
 	var everySec = 1000, everyMin = 1000 * 60, everyHour = 1000 * 60 * 60;
 	$(document).ready(function () {
+		$(':button[id="hr_plus"]').click(function () {
+			curHour++;
+			curHour %= 24;
+		});
+		$(':button[id="hr_minus"]').click(function () {
+			curHour--;
+			if (curHour < 0) {
+				curHour = 23;
+			}
+		});
+
 		updateClock();
 		$(".frame").show();
 
 		//setInterval(updateClock, everySec);
-		setInterval(moveSunAndMoon, 3000);
-		setInterval(windmillSecondTick, 1000);
+		//setInterval(moveSunAndMoon, 3000);
+		//setInterval(windmillSecondTick, 1000);
+
+		setInterval(displayTextTime, 100);
+		setInterval(updateClock ,100);
+
 	});
 
 	/* main clock logic */
 	var updateClock = function() {
-		getTime();
+		//getTime();
 		checkForHourlyChange();
 		checkForMinChange();
 		checkForSecChange();
@@ -68,11 +82,9 @@
 	var bladeAngle = 1;
 	var bladeTickDuration = 100;
 	function windmillSecondTick() {
-		$(".blades").rotate({
-			angle: bladeAngle,
-			animateTo: bladeAngle + 20,
-			duration: bladeTickDuration,
-		});
+		$(".blades").rotate({angle: bladeAngle,
+							 animateTo: bladeAngle + 20,
+							 duration: bladeTickDuration});
 		//handle angles > 360 deg
 		bladeAngle = (bladeAngle + 20) % 360;
 	}
@@ -84,11 +96,16 @@
 	var sunCoorX = [57,  85,  130, 185, 256, 346, 448, 535, 599, 662, 727, 779, 830 ,872, 914 ,952, 984];
 	var sunCoorY = [442, 370, 305, 229, 160, 102, 65,  51,  60,  72,  97,  125, 158, 197, 241, 286, 341];
 	var moonCoorX = [39,  92,  158, 238, 328, 434, 525, 618, 713, 797, 871, 932, 999];
-	var moonCoorY = [420, 309, 219, 143, 85,  49,  36,  49,  83,  130, 198, 271, 403];
-	var skyDayFadeAmount = [0, 0, 0, 0, 0.2, 0.4, 0.6, 0.8, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 0.8, 0.6, 0.4, 0.2, 0, 0, 0];
+	var moonCoorY = [420, 309, 219, 143, 85, 49, 36, 49, 83, 130, 198, 271, 403];
+
+	var skyDayFadeAmount = [0, 0, 0, 0.2, 0.4, 0.6, 0.8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.8, 0.6, 0.4, 0.2, 0, 0];
+	var backgroundFadeAmount = [0, 0, 0, 0.1, 0.3, 0.5, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.7, 0.5, 0.2, 0, 0];
+	var midgroundFadeAmount = [0, 0, 0, 0, 0.1, 0.3, 0.5, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.7, 0.5, 0.3, 0, 0, 0];
+	var foregroundFadeAmount = [0, 0, 0, 0, 0, 0.1, 0.3, 0.5, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 0.7, 0.5, 0.3, 0, 0, 0, 0];
+
 	var bezier_params = 0;
 	var moveSunAndMoon = function () {
-		displayTextTime();
+		
 
 		//check if within sun movement hours
 		if (curHour > 5 && curHour < 22) {
@@ -123,23 +140,32 @@
 		}
 
 		//handle lightening up and darkening sky
-		$(".sky_day").fadeTo("slow", skyDayFadeAmount[curHour]);
-		$(".foreground_day").fadeTo("slow", skyDayFadeAmount[curHour]);
-		$(".midground_day").fadeTo("slow", skyDayFadeAmount[curHour]);
-		$(".background_day").fadeTo("slow", skyDayFadeAmount[curHour]);
-		$(".blades_day").fadeTo("slow", skyDayFadeAmount[curHour]);
+		$(".sky_day").fadeTo(		"slow", skyDayFadeAmount[curHour]);
+		$(".foreground_day").fadeTo("slow", foregroundFadeAmount[curHour]);
+		$(".midground_day").fadeTo(	"slow", midgroundFadeAmount[curHour]);
+		$(".background_day").fadeTo("slow", backgroundFadeAmount[curHour]);
+		$(".blades_day").fadeTo(	"slow", foregroundFadeAmount[curHour]);
 
 		//debug 2 lines
-		curHour++;
-		curHour %= 24;
+		//curHour++;
+		//curHour %= 24;
 	}
 
 	var displayTextTime = function () {
 		$("#timeDisplay").text("" + curHour + ":" + curMin);
 	}
+
+
+
+
 </script>
 <body>
-	<div id="timeDisplay"> aaa</div>
+	<div id="timeDisplay">
+		aaa</div>
+	<div id="hourBtn">		
+		<button  id="hr_plus">hour++</button> </div>
+	<div id="Div1">		
+		<button  id="hr_minus">hour--</button> </div>
 	<div id="canvas">
 		<div class="frame sky_day">
 			<img src="imgs/skyDay.png" />		</div>

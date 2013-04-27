@@ -1,18 +1,14 @@
-URGENT:
--fix mountain 3 from left - edge to light in the night
+URGENT FIXES:
 
 
 NEXT UP:
--split background into separate objects (buildings mountains)
---add mechanism to handle dawns and shawns on buidings and mountains so further back objects lighten/darken sooner than more foreground obj
-ects
+-make stars
+-and slight  motion to stars
 
 LATER ON
--make new stars
--and slight  motion to stars
+
 -SOUNDS to ticks
 -improve animations of moon and sun movement(sprites??)
-
 
 
 would be nice (maybe):
