@@ -4,6 +4,7 @@
 	height:     714px;
 	left:		200px;
 	margin-top: 0px;
+	display:	none;
 }
 .frame { 
 	position:	absolute;
@@ -43,7 +44,7 @@
 	z-index:	20;
 }
 .sky_night {
-	z-index:	19;
+	z-index:	18;
 }
 
 #sun {
@@ -53,6 +54,10 @@
 #moon {
 	z-index:	30;
 	top:		400px;
+}
+#stars {
+	z-index:	19;
+	top:		0px;
 }
 
 .bottom_pos {
