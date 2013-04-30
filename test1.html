@@ -34,15 +34,11 @@
 		updateClock();
 		$(".frame").show();
 		$("#canvas").show();
-
-		//setInterval(moveSkyObjects, 3000);
-		//setInterval(windmillSecondTick, 1000);
-
 		//debug kick start first hour for nicer effect
 		curHour++;
-
+		
 		setInterval(displayTextTime, 100);
-		setInterval(updateClock, everySec);
+		setInterval(updateClock, 300);
 
 	});
 
@@ -111,7 +107,11 @@
 	var starsCoorX = [35, 40, 45, 50, 55, 60, 65, 70, 75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 10, 15, 20, 25, 30];
 	var starsCoorY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-	var skyDayFadeAmount = [0, 0, 0, 0.2, 0.4, 0.6, 0.8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.8, 0.6, 0.4, 0.2, 0, 0];
+	var nightSkyFadeAmount = [1, 1, 1, 0.8, 0.6, 0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0.4, 0.6, 0.8, 1, 1];
+	var dawnFadeAmount = [0, 0, 0, 0, 0, 0.4, 0.7, 1, 0.7, 0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	var duskFadeAmount = [0, 0, 0, 0, 0, 0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.4, 0.8, 0.4, 0, 0, 0];
+
+
 	var backgroundFadeAmount = [0, 0, 0, 0.1, 0.3, 0.5, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.7, 0.5, 0.2, 0, 0];
 	var midgroundFadeAmount = [0, 0, 0, 0, 0.1, 0.3, 0.5, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.7, 0.5, 0.3, 0, 0, 0];
 	var foregroundFadeAmount = [0, 0, 0, 0, 0, 0.1, 0.3, 0.5, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 0.7, 0.5, 0.3, 0, 0, 0, 0];
@@ -166,7 +166,10 @@
 		$("#stars").animate({ left: starsCoorX[coorIdx] }, moveSpeed);
 
 		//handle lightening up and darkening sky
-		$(".sky_day").fadeTo(		"slow", skyDayFadeAmount[curHour]);
+		$(".sky_night").fadeTo("slow", nightSkyFadeAmount[curHour]);
+		$("#stars").fadeTo("slow", nightSkyFadeAmount[curHour]);
+		$(".sky_dawn").fadeTo("slow", dawnFadeAmount[curHour]);
+		$(".sky_dusk").fadeTo("slow", duskFadeAmount[curHour]);
 		$(".foreground_day").fadeTo("slow", foregroundFadeAmount[curHour]);
 		$(".midground_day").fadeTo(	"slow", midgroundFadeAmount[curHour]);
 		$(".background_day").fadeTo("slow", backgroundFadeAmount[curHour]);
@@ -188,7 +191,10 @@
 			<img src="imgs/skyDay.png" />		</div>
 		<div class="frame sky_night">
 			<img src="imgs/skyNight.png" />		</div>
-
+		<div class="frame sky_dawn">
+			<img src="imgs/skyDawn.png" />		</div>
+		<div class="frame sky_dusk">
+			<img src="imgs/skyDusk.png" />		</div>
 
 		<div class="frame foreground_day bottom_pos">
 			<img src="imgs/foreground_day.png" />			</div>
@@ -219,3 +225,17 @@
 	</div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-40499507-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>

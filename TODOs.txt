@@ -2,8 +2,6 @@ URGENT FIXES:
 
 
 NEXT UP:
--make stars
--and slight  motion to stars
 
 LATER ON
 
@@ -12,5 +10,4 @@ LATER ON
 
 
 would be nice (maybe):
--add gradient/effects to shwan/dawn
 -random clounds (night/day?)
