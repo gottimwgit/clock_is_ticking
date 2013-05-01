@@ -1,13 +1,17 @@
-
-
-
 NEXT UP:
--fix handling to sun and moon properly this time -_-'
+-random clounds (night/day?)
+-SOUNDS to ticks and hour
+
 
 LATER ON
--SOUNDS to ticks
 -improve animations of moon and sun movement(sprites??)
 
 
-would be nice (maybe):
--random clounds (night/day?)
+WOULD BE NICE(maybe):
+
+
+
+URGENT FIXES:
+
+
+FIXES:

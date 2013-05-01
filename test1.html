@@ -48,17 +48,18 @@
 	/* applies effects and moves objects before showing them to avoid strange anims and fades */
 	function kickStartClock() {
 		//dubug: delete getTime() when done debuging mode
-		//getTime();
-		curHour = 12; curMin = 0; curSec = 0;
-		oldHour = 11; oldMin = 0; oldSec = 0;
+		getTime();
+		curHour--;
+		curMin--;
 		updateClock();
 		setTimeout(
 			function () {
 				$(".frame").show();
 				$("#canvas").show();
-			}, 0);
+			}, 300);
 		//debug kick start first hour for nicer effect
-		//curHour++;
+		curHour++;
+		curMin++;
 	}
 
 	function getTime() {
