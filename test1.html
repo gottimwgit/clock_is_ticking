@@ -14,8 +14,8 @@
 	var curHour = 0, curMin = 0, curSec = 0;
 	var oldHour = 0, oldMin = 0, oldSec = 0;
 	var everySec = 1000, everyMin = 1000 * 60, everyHour = 1000 * 60 * 60;
-	$(document).ready(function () {
 
+	$(document).ready(function () {
 		/////////////////////////////////
 		// DEBUG  functions
 		/////////////////////////////////
@@ -31,15 +31,9 @@
 		});
 		//////////////////////////
 
-		updateClock();
-		$(".frame").show();
-		$("#canvas").show();
-		//debug kick start first hour for nicer effect
-		curHour++;
-		
-		setInterval(displayTextTime, 100);
-		setInterval(updateClock, 300);
-
+		kickStartClock();
+		setInterval(displayTextTime, 300);
+		setInterval(updateClock, everySec);
 	});
 
 	/* main clock logic */
@@ -49,6 +43,22 @@
 		checkForHourlyChange();
 		checkForMinChange();
 		checkForSecChange();
+	}
+
+	/* applies effects and moves objects before showing them to avoid strange anims and fades */
+	function kickStartClock() {
+		//dubug: delete getTime() when done debuging mode
+		//getTime();
+		curHour = 12; curMin = 0; curSec = 0;
+		oldHour = 11; oldMin = 0; oldSec = 0;
+		updateClock();
+		setTimeout(
+			function () {
+				$(".frame").show();
+				$("#canvas").show();
+			}, 0);
+		//debug kick start first hour for nicer effect
+		//curHour++;
 	}
 
 	function getTime() {
@@ -129,29 +139,29 @@
 		bezier_params = {
 			start: { x: sunCoorX[coorIdx], y: sunCoorY[coorIdx], angle: -moveAngle, length: 0.5 },
 			end: { x: sunCoorX[nextCoorIdx], y: sunCoorY[nextCoorIdx], angle: moveAngle, length: 0.5 }};
-		$("#sun").animate({ path: new $.path.bezier(bezier_params) }, moveSpeed);
+		$("#sun").animate({ path: new $.path.bezier(bezier_params) }, { duration: moveSpeed, queue: false });
 
 		bezier_params = {
 			start: { x: moonCoorX[coorIdx], y: moonCoorY[coorIdx], angle: -moveAngle, length: 0.5 },
 			end: { x: moonCoorX[nextCoorIdx], y: moonCoorY[nextCoorIdx], angle: moveAngle, length: 0.5 }};
-		$("#moon").animate({ path: new $.path.bezier(bezier_params) }, moveSpeed);
+		$("#moon").animate({ path: new $.path.bezier(bezier_params) }, { duration: moveSpeed, queue: false} );
 				
 		bezier_params = {
 			start: { x: starsCoorX[coorIdx], y: starsCoorY[coorIdx], angle: 0, length: 1 },
 			end: { x: starsCoorX[nextCoorIdx], y: starsCoorY[nextCoorIdx], angle: 0, length: 1 }};
-		$("#stars").animate({ left: starsCoorX[coorIdx] }, moveSpeed);
+		$("#stars").animate({ left: starsCoorX[coorIdx] }, { duration: moveSpeed, queue: false } );
 
 		//handle lightening up and darkening sky
-		$("#sun").fadeTo("slow", sunFadeAmount[curHour]);
-		$("#moon").fadeTo("slow", moonFadeAmount[curHour]);
-		$("#stars").fadeTo("slow", nightSkyFadeAmount[curHour]);
-		$(".sky_night").fadeTo("slow", nightSkyFadeAmount[curHour]);
-		$(".sky_dawn").fadeTo("slow", dawnFadeAmount[curHour]);
-		$(".sky_dusk").fadeTo("slow", duskFadeAmount[curHour]);
-		$(".foreground_day").fadeTo("slow", foregroundFadeAmount[curHour]);
-		$(".midground_day").fadeTo(	"slow", midgroundFadeAmount[curHour]);
-		$(".background_day").fadeTo("slow", backgroundFadeAmount[curHour]);
-		$(".blades_day").fadeTo(	"slow", foregroundFadeAmount[curHour]);
+		$("#sun").fadeTo({ duration: 'slow', queue: false }, sunFadeAmount[curHour]);
+		$("#moon").fadeTo({ duration: 'slow', queue: false }, moonFadeAmount[curHour]);
+		$("#stars").fadeTo({ duration: 'slow', queue: false }, nightSkyFadeAmount[curHour]);
+		$(".sky_night").fadeTo({ duration: 'slow', queue: false }, nightSkyFadeAmount[curHour]);
+		$(".sky_dawn").fadeTo({ duration: 'slow', queue: false }, dawnFadeAmount[curHour]);
+		$(".sky_dusk").fadeTo({ duration: 'slow', queue: false }, duskFadeAmount[curHour]);
+		$(".foreground_day").fadeTo({ duration: 'slow', queue: false }, foregroundFadeAmount[curHour]);
+		$(".midground_day").fadeTo({ duration: 'slow', queue: false }, midgroundFadeAmount[curHour]);
+		$(".background_day").fadeTo({ duration: 'slow', queue: false }, backgroundFadeAmount[curHour]);
+		$(".blades_day").fadeTo({ duration: 'slow', queue: false }, foregroundFadeAmount[curHour]);
 	}
 
 	var displayTextTime = function () {
