@@ -1,10 +1,10 @@
-URGENT FIXES:
+
 
 
 NEXT UP:
+-fix handling to sun and moon properly this time -_-'
 
 LATER ON
-
 -SOUNDS to ticks
 -improve animations of moon and sun movement(sprites??)
 
