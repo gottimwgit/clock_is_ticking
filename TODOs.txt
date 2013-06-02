@@ -1,13 +1,14 @@
 NEXT UP:
--random clounds (night/day?)
--SOUNDS to ticks and hour
+-random clounds (night/day?) [canvas overflow hidden implemented already]
 
 
 LATER ON
 -improve animations of moon and sun movement(sprites??)
-
+-lights in houses during the night
 
 WOULD BE NICE(maybe):
+-improve on movement of sun and moon (move back slightly before shooting foreward)
+-SOUNDS to ticks and hour
 
 
 

@@ -56,7 +56,7 @@
 			function () {
 				$(".frame").show();
 				$("#canvas").show();
-			}, 300);
+			}, 500);
 		//debug kick start first hour for nicer effect
 		curHour++;
 		curMin++;
@@ -170,41 +170,38 @@
 	}
 
 </script>
-<body>
-	<div id="timeDisplay">		aaa												</div>
-	<div id="hourBtn">			<button  id="hr_plus">	hour++	</button>		</div>
-	<div id="Div1">				<button  id="hr_minus">	hour--	</button>		</div>
-
+<body>	
 	<div id="canvas">
 		<div class="frame sky_day">
 			<img src="imgs/skyDay.png" />		</div>
+	
 		<div class="frame sky_night">
 			<img src="imgs/skyNight.png" />		</div>
 		<div class="frame sky_dawn">
 			<img src="imgs/skyDawn.png" />		</div>
 		<div class="frame sky_dusk">
 			<img src="imgs/skyDusk.png" />		</div>
-
-		<div class="frame foreground_day bottom_pos">
-			<img src="imgs/foreground_day.png" />			</div>
-		<div class="frame foreground_night bottom_pos">
+	
+		<div class="foreground_day bottom_pos frame">
+			<img src="imgs/foreground_day.png " />			</div>
+		<div class="foreground_night bottom_pos frame">
 			<img src="imgs/foreground_night.png" />			</div>
-
-		<div class="frame midground_day bottom_pos">
+	
+		<div class="midground_day bottom_pos frame">
 			<img src="imgs/midground_day.png" />			</div>
-		<div class="frame midground_night bottom_pos">
+		<div class="midground_night bottom_pos frame">
 			<img src="imgs/midground_night.png" />			</div>
-
+		
 		<div class="frame background_day ">
 			<img src="imgs/background_day.png" />			</div>
 		<div class="frame background_night ">
 			<img src="imgs/background_night.png" />			</div>
-
+	
 		<div class="frame blades blades_day">
 			<img src="imgs/blades_day.png" />		</div>
 		<div class="frame blades blades_night">
 			<img src="imgs/blades_night.png" />		</div>
-
+	
 		<div class="frame" id="sun">
 			<img src="imgs/sun.png" />			</div>
 		<div class="frame" id="moon">
@@ -212,6 +209,11 @@
 		<div class="frame" id="stars">
 			<img src="imgs/stars.png" />		</div>
 	</div>
+
+	<div id="timeDisplay">		aaa												</div>
+	<div id="hourBtn">			<button  id="hr_plus">	hour++	</button>		</div>
+	<div id="Div1">				<button  id="hr_minus">	hour--	</button>		</div>
+
 </body>
 </html>
 

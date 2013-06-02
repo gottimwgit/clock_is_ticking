@@ -1,14 +1,18 @@
 #canvas {
 	position:	relative;
+	display:	none;
+	margin-left:-638px;
+	margin-top:	50px;
+	left:		50%; 
 	width:		1277px;
 	height:     714px;
-	left:		200px;
-	margin-top: 0px;
-	display:	none;
+	overflow:	hidden;
 }
+
 .frame { 
 	position:	absolute;
 	display:	none;
+	
 }
 .blades {
 	top:		530px;
@@ -60,7 +64,7 @@
 }
 #moon {
 	z-index:	30;
-	top:		400px;
+	top:		400px;``
 }
 #stars {
 	z-index:	25;
@@ -69,4 +73,12 @@
 
 .bottom_pos {
 	bottom:0px;
+}
+
+body {
+	background-image: url("../imgs/frame_background.png");
+	#background-position: center center, 20% 80%, top left, bottom right;
+	background-position: center top;
+	background-origin: border-box, content-box;
+	background-repeat: no-repeat;
 }
