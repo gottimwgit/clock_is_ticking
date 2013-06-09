@@ -6,14 +6,23 @@
 	left:		50%; 
 	width:		1277px;
 	height:     714px;
-	overflow:	hidden;
+/*	overflow:	hidden;  #clips elements that are outside this div 
+*/
 }
 
 .frame { 
 	position:	absolute;
 	display:	none;
-	
 }
+
+.hide_elem {
+	display:	none;
+}
+
+.show_elem {
+	display:	block;
+}
+
 .blades {
 	top:		530px;
 	left:		540px;
@@ -24,7 +33,6 @@
 .blades_night {
 	z-index:	399;
 }
-
 
 .foreground_day {
 	z-index:	150;
@@ -45,6 +53,23 @@
 	z-index:	49;
 }
 
+#sun {
+	z-index:	30;
+	top:		400px;
+}
+#moon {
+	z-index:	30;
+	top:		400px;
+}
+#stars {
+	z-index:	25;
+	top:		0px;
+}
+
+.bottom_pos {
+	bottom:0px;
+}
+
 .sky_day {
 	z-index:	20;
 }
@@ -58,27 +83,18 @@
 	z-index:	22;
 }
 
-#sun {
-	z-index:	30;
-	top:		400px;
-}
-#moon {
-	z-index:	30;
-	top:		400px;``
-}
-#stars {
-	z-index:	25;
-	top:		0px;
-}
-
-.bottom_pos {
-	bottom:0px;
-}
-
 body {
 	background-image: url("../imgs/frame_background.png");
-	#background-position: center center, 20% 80%, top left, bottom right;
 	background-position: center top;
 	background-origin: border-box, content-box;
 	background-repeat: no-repeat;
+}
+
+.cloud_div {
+	/* used by jquery to pick cloud divs*/
+}
+
+.cloud_img {
+	position:	absolute;
+	right:		100%;
 }
