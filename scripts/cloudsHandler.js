@@ -28,15 +28,16 @@ function addCloudToCanvas() {
 					"' " +
 				">" +
 					"<img class='cloud_img' " +
-						"src='imgs/clouds/cloud_night_" + cloud_img_number + ".png' " +
+						"src='imgs/clouds/cloud_day_" + cloud_img_number + ".png' " +
 					" //>" +
 					"<img class='cloud_img' " +
-						"src='imgs/clouds/cloud_day_" + cloud_img_number + ".png' " +
+						"src='imgs/clouds/cloud_night_" + cloud_img_number + ".png' " +
 					" //>" +
 				"</div>";
 	$('#canvas').append(tag);
 
 	cloud_array.push($('.cloud_div').last());
+	toogleCloudBasedOnTime(cloud_array[cloud_array.length - 1]);
 }
 
 function animateClouds() {
@@ -58,4 +59,8 @@ function getRandomImageIndex() {
 
 function getRandomSpeed() {
 	return (Math.floor(Math.random() * (maxCloudSpeed - minCloudSpeed))) + minCloudSpeed;
+}
+
+function toogleCloudBasedOnTime(cloud_div) {
+	cloud_div.find(":last-child").fadeTo({ duration: 'slow', queue: false }, nightSkyFadeAmount[curHour]);
 }
